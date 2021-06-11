@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Redirect pull request code to Gitlab CI
+      - name: Run tests in Gitlab CI and wait for result
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
           GITLAB_PROJECT_ID: ${{ secrets.GITLAB_PROJECT_ID }}
