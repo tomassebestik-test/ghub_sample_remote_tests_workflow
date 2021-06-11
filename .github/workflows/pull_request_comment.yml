@@ -1,0 +1,15 @@
+name: pull_rq_comment
+on:
+  issue_comment:
+    types: [created]
+
+
+jobs:
+  pull-pull_rq_comment:
+    name: Test action pull request comment
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Test job - call hello
+        run: |
+          echo "Hello"

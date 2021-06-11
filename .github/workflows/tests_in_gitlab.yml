@@ -1,0 +1,36 @@
+name: External tests in GITLAB
+on: [pull_request_target]
+
+jobs:
+  pull-request:
+    name: Run tests in Espressif Gitlab CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Redirect pull request code to Gitlab CI
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          GITLAB_PROJECT_ID: ${{ secrets.GITLAB_PROJECT_ID }}
+          GITLAB_PROJECT_TRIGGER_DESCRIPTION: ${{ secrets.GITLAB_PROJECT_TRIGGER_DESCRIPTION }}
+          FORK_URL: ${{ github.event.pull_request.head.repo.clone_url}}
+          FORK_SHA: ${{ github.event.pull_request.head.sha }}
+          PULLRQ_NR: ${{ github.event.pull_request.number }}
+        run: |
+          python -m pip install -r .github/scripts/requirements.txt
+          echo $(date)
+          echo "Start external tests in Espressif Gitlab"
+          echo ""
+          echo "Waiting for finish Gitlab pipeline ...  "
+          python .github/scripts/trigger_gitlab.py
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: gitlab_tests_logs
+          path: artifacts
