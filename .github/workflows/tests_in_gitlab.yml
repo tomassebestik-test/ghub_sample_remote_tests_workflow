@@ -25,6 +25,7 @@ jobs:
         run: |
           python -m pip install -r .github/scripts/requirements.txt
           echo $(date)
+          echo ${{ secrets.GITLAB_TOKEN }}
           echo "Start external tests in Espressif Gitlab"
           echo ""
           echo "Waiting for finish Gitlab pipeline ...  "
