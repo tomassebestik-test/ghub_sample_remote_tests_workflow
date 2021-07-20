@@ -23,13 +23,13 @@ jobs:
           FORK_SHA: ${{ github.event.pull_request.head.sha }}
           PULLRQ_NR: ${{ github.event.pull_request.number }}
         run: |
-          python -m pip install -r .github/scripts/requirements.txt
+          # python -m pip install -r .github/scripts/requirements.txt
           echo $(date)
           echo ${{ secrets.GITLAB_TOKEN }}
           echo "Start external tests in Espressif Gitlab"
           echo ""
           echo "Waiting for finish Gitlab pipeline ...  "
-          python .github/scripts/trigger_gitlab.py
+          # python .github/scripts/trigger_gitlab.py
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
